@@ -13,7 +13,6 @@
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
     "build": "node build/build.js"
   },
-  "author": "localhost <https://localhost>",
   "license": "UNLICENSED",
   "dependencies": {
     "axios": "^0.18.0",
