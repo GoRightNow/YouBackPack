@@ -55,5 +55,5 @@ export class BaseApi {
   }
 }
 
-export const servers = new BaseApi("http://127.0.0.1:8080")
+export const servers = new BaseApi("http://localhost:8080")
 
