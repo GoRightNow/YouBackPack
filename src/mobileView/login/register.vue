@@ -18,7 +18,7 @@
             <el-form-item label="确认密码" prop="passwordB">
               <el-input type="password" v-model="form.passwordB"></el-input>
             </el-form-item>
-            <el-form-item>
+            <el-form-item style="margin-top: 20px">
               <el-button style="float: right; width: 100%" height="60px" type="primary" @click="onSubmit">注册</el-button>
             </el-form-item>
           </el-form>
@@ -55,20 +55,29 @@
     methods: {
       onSubmit() {
         this.$refs['form'].validate((valid) => {
-          loginApi.login(this.form).then((re) => {
-            if(valid) {
-              if(this.form.passwordA !== this.form.passwordB)
-                this.$message({message: "两次密码输入不一致", type: "error"})
-              if(re.data.data.name == null) {
-                this.$message({message: "请先注册", type: "success"});
+          if(valid) {
+            if(this.form.passwordA !== this.form.passwordB)
+              this.$message({message: "两次密码输入不一致", type: "error"})
+            let data = {
+              number: this.form.number,
+              password: this.form.passwordA
+            }
+            loginApi.register(data).then((re) => {
+              if(re.data.data === undefined) {
+                this.$message({message: "手机号已注册", type: "error"})
+                this.$router.push({path: '/login'})
               }
               else {
-                this.$message({message: "欢迎," + re.data.data.name + "!", type: "success"});
-                this.$router.push({path: '/storageOrder', query: {id: re.data.data.id}})
+                this.$router.push({path: '/storageOrder'})
               }
-            }
-          }).catch((error) => {
-          })
+
+            }).catch((error) => {
+            })
+          }
+          else {
+
+          }
+
         });
       },
     }
@@ -78,6 +87,9 @@
 <style scoped>
 </style>
 <style>
+  .register .el-form-item {
+    margin-bottom: 10px;
+  }
   .register .cardStyle {
     width: 80%;
     margin: auto
