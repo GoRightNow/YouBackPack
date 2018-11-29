@@ -4,7 +4,10 @@
 
 <script>
     export default {
-        name: "storage"
+        name: "storage",
+        data: function () {
+          return {}
+        }
     }
 </script>
 

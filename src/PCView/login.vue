@@ -1,5 +1,9 @@
 <template>
-  <div>PC登陆页面</div>
+  <div>
+    <div>PC登陆页面</div>
+    <router-view />
+  </div>
+
 </template>
 
 <script>
