@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '../mobileView/login'
+import Login from '../mobileView/login/login'
 
 Vue.use(Router)
 
@@ -16,7 +16,7 @@ export default new Router({
     {
       path: '/PCView',
       name: 'PCView',
-      component: () => import('../PCView/login'),
+      component: () => import('../PCView/login')
     },
     {
       path: '/PCView/admin/storage',
