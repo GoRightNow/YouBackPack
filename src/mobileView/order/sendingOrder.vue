@@ -55,34 +55,42 @@ export default {
         value: '重庆',
         label: '重庆',
         children: [{
-          value: '巴南',
+          value: '1',
           label: '巴南'
         }, {
-          value: 'aaa',
+          value: '2',
           label: 'aaa'
         }, {
-          value: 'bbb',
+          value: '3',
           label: 'bbb'
         }]
       }, {
         value: '上海',
         label: '上海',
         children: [{
-          value: 'ccc',
+          value: '4',
           label: 'ccc'
         }, {
-          value: 'ddd',
+          value: '5',
           label: 'ddd'
         }, {
-          value: 'eee',
+          value: '6',
           label: 'eee'
         }]
       }, {
         value: '北京',
-        label: '北京'
+        label: '北京',
+        children: [{
+          value: '7',
+          label: 'fff'
+        }]
       }, {
         value: '天津',
-        label: '天津'
+        label: '天津',
+        children: [{
+          value: '8',
+          label: 'ggg'
+        }]
       }],
       types: [{
         value: '普通',
