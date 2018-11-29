@@ -29,6 +29,7 @@
 </template>
 
 <script>
+  import {loginApi} from './login-api';
     export default {
       name: "login",
       data: function() {
@@ -44,6 +45,11 @@
       },
       methods: {
         onSubmit() {
+          loginApi.login({name: "ddd"}).then((re) => {
+            console.log(re)
+          }).catch((error) => {
+            console.log(error)
+          })
           console.dir("执行登录");
         },
         useMessage() {
