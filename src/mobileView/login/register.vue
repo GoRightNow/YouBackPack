@@ -1,0 +1,113 @@
+<template>
+  <div class="register">
+    <el-card  class="cardStyle transparent">
+      <div style="max-height: 50px" slot="header">
+        <p style="text-align: center">你的背包</p>
+      </div>
+      <el-card  class="cardStyle transparent" style="width: 100%">
+        <div style="max-height: 50px" slot="header">
+          <p style="text-align: center">注册</p>
+        </div>
+          <el-form ref="form" :rules="rules" :model="form">
+            <el-form-item label="手机号" prop="number">
+              <el-input v-model="form.number"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" prop="passwordA">
+              <el-input type="password" v-model="form.passwordA"></el-input>
+            </el-form-item>
+            <el-form-item label="确认密码" prop="passwordB">
+              <el-input type="password" v-model="form.passwordB"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button style="float: right; width: 100%" height="60px" type="primary" @click="onSubmit">注册</el-button>
+            </el-form-item>
+          </el-form>
+      </el-card>
+    </el-card>
+  </div>
+
+</template>
+
+<script>
+  import {loginApi} from './login-api';
+  export default {
+    name: "register",
+    data: function() {
+      return {
+        form: {
+          number: '',
+          passwordA: '',
+          passwordB: ''
+        },
+        rules: {
+          number: [
+            {required: true, message: '请输入手机号', trigger: 'change'}
+          ],
+          passwordA: [
+            {required: true, message: '请输入密码', trigger: 'change'}
+          ],
+          passwordB: [
+            {required: true, message: '请确认密码', trigger: 'change'}
+          ]
+        },
+      }
+    },
+    methods: {
+      onSubmit() {
+        this.$refs['form'].validate((valid) => {
+          loginApi.login(this.form).then((re) => {
+            if(valid) {
+              if(this.form.passwordA !== this.form.passwordB)
+                this.$message({message: "两次密码输入不一致", type: "error"})
+              if(re.data.data.name == null) {
+                this.$message({message: "请先注册", type: "success"});
+              }
+              else {
+                this.$message({message: "欢迎," + re.data.data.name + "!", type: "success"});
+                this.$router.push({path: '/storageOrder', query: {id: re.data.data.id}})
+              }
+            }
+          }).catch((error) => {
+          })
+        });
+      },
+    }
+  }
+</script>
+
+<style scoped>
+</style>
+<style>
+  .register .cardStyle {
+    width: 80%;
+    margin: auto
+  }
+  .register .transparent {
+    background: hsla(0,0%,100%,.7);
+  }
+  body {
+    margin: 0px;
+    max-height: 975px;
+    height: 100%;
+    width: 100%;
+    background: url('../../assets/login.jpg');
+    background-size:cover;
+    background-attachment: fixed;
+  }
+  .register .el-card__header {
+    padding: 0px;
+  }
+  .register .el-tabs__nav {
+    width: 100%
+  }
+
+  /*.login .el-tabs__item is-top {*/
+  /*width: 56% !important;*/
+  /*}*/
+  .register #tab-password {
+    width: 51% !important;
+  }
+  .register #tab-VRFCC {
+    width: 51% !important;
+  }
+</style>
