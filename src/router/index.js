@@ -6,9 +6,14 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/login',
       name: 'Login',
       component: () => import('../mobileView/login/login')
+    },
+    {
+      path: '/register',
+      name: 'Rigister',
+      component: () => import('../mobileView/login/register')
     },
     {
       path: '/PCView',
