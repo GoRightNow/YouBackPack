@@ -5,6 +5,16 @@
       </div>
       <el-card>
         <el-form ref="sendingForm" :model="sending">
+          <el-form-item label="寄送类型">
+            <el-select v-model="sending.type">
+              <el-option
+                v-for="item in types"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item label="寄送地址">
             <el-cascader
               expand-trigger="hover"
@@ -20,15 +30,11 @@
               v-model="sending.address">
             </el-cascader>-->
           </el-form-item>
-          <el-form-item label="寄送类型">
-            <el-select v-model="sending.type">
-              <el-option
-                v-for="item in types"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
+          <el-form-item label="收件人姓名">
+            <el-input v-model="sending.addresseeName"></el-input>
+          </el-form-item>
+          <el-form-item label="收件人电话">
+            <el-input v-model="sending.addresseeTel"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitSendingOrder">提交</el-button>
@@ -82,11 +88,11 @@ export default {
         value: '普通',
         label: '普通'
       }, {
+        value: '快件',
+        label: '快件'
+      }, {
         value: '加急',
         label: '加急'
-      }, {
-        value: '急速',
-        label: '急速'
       }]
     }
   },

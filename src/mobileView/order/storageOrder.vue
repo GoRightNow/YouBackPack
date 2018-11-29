@@ -33,24 +33,12 @@
         <el-form-item label="存储类型">
           <el-input v-model="storage.storageType"></el-input>
         </el-form-item>
-        <el-form-item label="存储时间">
-          <el-col :span="9">
-            <el-date-picker
-              v-model="storage.startTime"
-              type="date"
-              placeholder="开始时间"
-              style="width: 100%;">
-            </el-date-picker>
-          </el-col>
-          <el-col class="line" :span="2">-</el-col>
-          <el-col :span="9">
-            <el-date-picker
-              v-model="storage.endingTime"
-              type="date"
-              placeholder="结束时间"
-              style="width: 100%;">
-            </el-date-picker>
-          </el-col>
+        <el-form-item label="存储至">
+          <el-date-picker
+            v-model="storage.endingTime"
+            type="date"
+            placeholder="结束时间">
+          </el-date-picker>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submit">提交</el-button>
