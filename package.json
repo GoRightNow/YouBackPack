@@ -2,7 +2,7 @@
   "name": "web-front-end-structure",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "306_李红 <1091262287@qq.comm>",
+  "author": "localhost <https://localhost>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
@@ -13,12 +13,16 @@
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
     "build": "node build/build.js"
   },
+  "author": "localhost <https://localhost>",
+  "license": "UNLICENSED",
   "dependencies": {
+    "axios": "^0.18.0",
     "element-ui": "^2.4.0",
     "mint-ui": "^2.2.13",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "qs": "^6.5.1"
   },
   "devDependencies": {
     "lodash": "4.17.10",
