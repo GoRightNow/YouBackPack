@@ -11,7 +11,19 @@ export default new Router({
       name: 'Login',
       components: {
         default: Login
-      },
+      }
+    },
+    {
+      path: '/PCView',
+      name: 'PCView',
+      components: () => import('../PCView/login'),
+      children: [
+        {
+          path: '/admin',
+          name: 'admin',
+          components: () => import('../PCView/admin/storage')
+        }
+      ]
     }
   ]
 })
