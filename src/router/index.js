@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '../mobileView/login/login'
+import S from '../PCView/admin/storage'
 
 Vue.use(Router)
 
@@ -16,14 +17,14 @@ export default new Router({
     {
       path: '/PCView',
       name: 'PCView',
-      components: () => import('../PCView/login'),
-      children: [
-        {
-          path: '/admin',
-          name: 'admin',
-          components: () => import('../PCView/admin/storage')
-        }
-      ]
+      component: () => import('../PCView/login')
+    },
+    {
+      path: '/PCView/admin',
+      name: 'admin',
+      components: {
+        default: S
+      }
     }
   ]
 })
