@@ -11,11 +11,6 @@ export default {
     return {
 
     }
-  },
-  methods : {
-    goToMintUI() {
-      this.$router.push({path: 'MintUILab'})
-    },
   }
 }
 </script>
@@ -29,7 +24,7 @@ export default {
   height: 100%;
 }
   html {
-    height: 95%;
+    height: 100%;
     margin: 0px;
     padding: 0px;
   }
