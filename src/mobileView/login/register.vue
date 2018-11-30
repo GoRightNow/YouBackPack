@@ -41,13 +41,16 @@
         },
         rules: {
           number: [
-            {required: true, message: '请输入手机号', trigger: 'change'}
+            {required: true, message: '请输入手机号', trigger: 'change'},
+            {min: 11, max: 11, message: '手机号格式错误', trigger: 'blur'}
           ],
           passwordA: [
-            {required: true, message: '请输入密码', trigger: 'change'}
+            {required: true, message: '请输入密码', trigger: 'change'},
+            {min: 8, max: 16, message: '长度在 8 到 16 个字符', trigger: 'blur'}
           ],
           passwordB: [
-            {required: true, message: '请确认密码', trigger: 'change'}
+            {required: true, message: '请确认密码', trigger: 'change'},
+            {min: 8, max: 16, message: '长度在 8 到 16 个字符', trigger: 'blur'}
           ]
         },
       }
@@ -63,19 +66,18 @@
               password: this.form.passwordA
             }
             loginApi.register(data).then((re) => {
-              if(re.data.data === undefined) {
-                this.$message({message: "手机号已注册", type: "error"})
-                this.$router.push({path: '/login'})
-              }
-              else {
-                this.$router.push({path: '/storageOrder'})
-              }
-
+              this.$message({message: "注册成功", type: "success"})
+              // if(re.data.data === undefined) {
+              //   this.$message({message: "手机号已注册", type: "error"})
+              //   this.$router.push({path: '/login'})
+              // }
+              // else {
+              //   this.$router.push({path: '/storageOrder'})
+              // }
             }).catch((error) => {
             })
           }
           else {
-
           }
 
         });
