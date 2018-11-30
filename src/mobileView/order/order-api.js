@@ -8,4 +8,12 @@ export class orderApi{
   static saveSending(sending){
     return servers.connection('POST','/save/saveSending',sending);
   }
+
+  static findArea(){
+    return servers.connection('POST','/save/findArea');
+  }
+
+  static findPackage(areaId){
+    return servers.connection('GET','save/findPackage',areaId);
+  }
 }

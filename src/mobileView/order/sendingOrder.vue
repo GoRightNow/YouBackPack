@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="sending">
       <el-card>
         <div class="head">
           <p>寄送信息填写</p>
@@ -34,12 +34,6 @@
                 :value="item.value">
               </el-option>
             </el-select>
-            <!--<el-input v-model="sending.address"></el-input>-->
-            <!--<el-cascader
-              expand-trigger="hover"
-              :options="address"
-              v-model="sending.address">
-            </el-cascader>-->
           </el-form-item>
           <el-form-item label="收件人姓名">
             <el-input v-model="sending.addresseeName"></el-input>
@@ -64,19 +58,7 @@
   data () {
     return {
       sending: {},
-      areas: [{
-        value: 1,
-        label: '重庆巴南'
-      }, {
-        value: 2,
-        label: '上海',
-      }, {
-        value: 3,
-        label: '北京',
-      }, {
-        value: 4,
-        label: '天津',
-      }],
+      areas: [],
       types: [{
         value: '普通',
         label: '普通'
@@ -89,7 +71,27 @@
       }]
     }
   },
+    created: function(){
+      this.findAreas();
+    },
   methods: {
+    findAreas(){
+      orderApi.findArea().then((res) => {
+        console.log(res.data);
+        for(let e of res.data){
+          let area = {};
+          area.label = e.address;
+          area.value = e.id;
+          console.log(area);
+          this.areas.push(area);
+        }
+      }).catch((error) => {
+        this.$message({
+          type: 'error',
+          message: `查询地域信息失败`
+        })
+      })
+    },
     installParms(){
       this.storage.userId = this.$route.query.id;
     },
@@ -97,7 +99,7 @@
       this.installParms();
       orderApi.saveSending(this.sending).then((res) => {
         this.$message({
-          type: 'info',
+          type: 'success',
           message: `寄送信息提交成功`
         })
       }).catch((error) => {

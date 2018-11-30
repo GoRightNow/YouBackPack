@@ -6,8 +6,8 @@
       </el-header>
       <el-main>
         <el-card>
-          <el-button @click="toStorage">存储物品</el-button>
-          <el-button @click="toSending">寄送物品</el-button>
+          <el-button type="big" @click="toStorage">存储物品</el-button>
+          <el-button type="big" @click="toSending">寄送物品</el-button>
         </el-card>
       </el-main>
     </div>
