@@ -6,7 +6,7 @@
         </div>
         <el-form ref="sendingForm" :model="sending">
           <el-form-item label="寄送类型">
-            <el-select v-model="sending.sendingType">
+            <el-select clearable  v-model="sending.sendingType">
               <el-option
                 v-for="item in types"
                 :key="item.value"
@@ -16,7 +16,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="寄送地址">
-            <el-select v-model="sending.areaId">
+            <el-select clearable  v-model="sending.areaId">
               <el-option
                 v-for="item in areas"
                 :key="item.key"
@@ -26,7 +26,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="目的地址">
-            <el-select v-model="sending.sending_addressId">
+            <el-select clearable  v-model="sending.sending_addressId">
               <el-option
                 v-for="item in areas"
                 :key="item.key"
@@ -72,6 +72,7 @@
     }
   },
     created: function(){
+      this.sending.userId = this.$route.query.id;
       this.findAreas();
     },
   methods: {
@@ -93,10 +94,9 @@
       })
     },
     installParms(){
-      this.storage.userId = this.$route.query.id;
+
     },
     submitSendingOrder () {
-      this.installParms();
       orderApi.saveSending(this.sending).then((res) => {
         this.$message({
           type: 'success',
@@ -111,7 +111,10 @@
     },
     resetSendingOrder () {
       this.$router.push({
-        path: '/login'
+        path: '/mobileView/business/chooseBusiness',
+        query: {
+          id: this.sending.userId
+        }
       })
     }
   }

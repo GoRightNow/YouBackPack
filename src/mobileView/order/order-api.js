@@ -14,6 +14,6 @@ export class orderApi{
   }
 
   static findPackage(areaId){
-    return servers.connection('GET','save/findPackage',areaId);
+    return servers.connection('GET','/save/findPackage',areaId);
   }
 }

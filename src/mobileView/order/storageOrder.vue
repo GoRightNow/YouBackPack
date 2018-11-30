@@ -6,7 +6,7 @@
       </div>
       <el-form ref="storageForm" :model="storage">
         <el-form-item label="存储类型">
-          <el-select v-model="storage.storageType">
+          <el-select clearable  v-model="storage.storageType">
             <el-option
               v-for="item in types"
               :key="item.value"
@@ -16,7 +16,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="存储地域">
-          <el-select v-model="storage.areaId">
+          <el-select clearable  v-model="storage.areaId" @change="findPackage">
               <el-option
                       v-for="item in areas"
                       :key="item.key"
@@ -26,13 +26,21 @@
           </el-select>
         </el-form-item>
         <el-form-item label="背包编码">
-          <el-input v-model="storage.packageId"></el-input>
+          <el-select clearable  v-model="storage.packageId">
+            <el-option
+              v-for="item in packages"
+              :key="item.key"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="结束时间">
           <el-date-picker
             v-model="storage.endingTime"
-            type="date"
-            placeholder="结束时间">
+            type="datetime"
+            placeholder="结束时间"
+            :start-date="startDate">
           </el-date-picker>
         </el-form-item>
         <el-form-item>
@@ -60,10 +68,12 @@
       }, {
         value: '贵重',
         label: '贵重'
-      }]
+      }],
+      startDate: new Date()
     }
   },
     created: function(){
+      this.storage.userId = this.$route.query.id;
       this.findAreas();
     },
   methods: {
@@ -74,7 +84,6 @@
           let area = {};
           area.label = e.address;
           area.value = e.id;
-          console.log(area);
           this.areas.push(area);
         }
       }).catch((error) => {
@@ -85,10 +94,13 @@
       })
     },
     findPackage(){
-      orderApi.findPackage(this.storage.areaId).then((res) => {
-        for(let i = 0; i < res.data.length; i++){
-          this.packages[i].label = res.data[i].id;
-          this.packages[i].value = res.data[i].id;
+      orderApi.findPackage({areaId: this.storage.areaId}).then((res) => {
+        console.log(res.data);
+        for(let e of res.data){
+          let apackage = {};
+          apackage.label = e.id;
+          apackage.value = e.id;
+          this.packages.push(apackage);
         }
       }).catch((error) => {
         this.$message({
@@ -99,7 +111,6 @@
     },
     installParms(){
       // this.storage.userId = 1;
-      this.storage.userId = this.$route.query.id;
       this.storage.startTime = new Date();
       this.storage.endingTime = new Date(this.storage.endingTime);
     },
@@ -119,7 +130,10 @@
     },
     reset () {
       this.$router.push({
-        path: '/login'
+        path: '/mobileView/business/chooseBusiness',
+        query: {
+          id: this.storage.userId
+        }
       })
     }
   }
@@ -130,6 +144,9 @@
 
 </style>
 <style>
+  .storage{
+    background: url('../../assets/login.jpg');
+  }
   .storage .el-card__body{
     background: hsla(0, 0%, 100%, .7);
   }
