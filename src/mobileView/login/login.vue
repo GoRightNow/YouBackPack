@@ -121,14 +121,14 @@
 <style>
   .login .cardStyle {
     width: 80%;
-    margin: auto
+    margin: auto;
   }
 
   .login .transparent {
     background: hsla(0, 0%, 100%, .7);
   }
 
-  body {
+  .login {
     margin: 0px;
     max-height: 975px;
     height: 100%;

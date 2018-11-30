@@ -69,11 +69,14 @@
 </script>
 
 <style scoped>
-
 </style>
 <style>
+  .menu body{
+    background: white;
+  }
   .menu {
     height: 100%;
+    background: white;
   }
   .menu .headerStyle {
     width: 100%;
