@@ -21,9 +21,9 @@
             id: ''
           }
       },
-      created: function() {
-          this.id = this.$route.query.id;
-      },
+      // created: function() {
+      //     this.id = this.$route.query.id;
+      // },
       methods: {
           backToLogin(){
             this.$router.push({
@@ -34,7 +34,7 @@
             this.$router.push({
               path: '/mobileView/order/storageOrder',
               query: {
-                id: id
+                id: this.$route.query.id
               }
             })
         },
@@ -42,7 +42,7 @@
             this.$router.push({
               path: '/mobileView/order/sendingOrder',
               query: {
-                id: id
+                id: this.$route.query.id
               }
             })
         }
