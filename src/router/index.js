@@ -18,13 +18,29 @@ export default new Router({
     {
       path: '/PCView',
       name: 'PCView',
-      components: () => import('../PCView/login'),
+      component: () => import('../PCView/menu'),
       children: [
         {
-          path: '/admin',
+          path: '/PCView/storage',
           name: 'admin',
-          components: () => import('../PCView/admin/storage')
-        }
+          component: () => import('../PCView/admin/storage')
+        },
+        {
+          path: '/PCView/sending',
+          component: () => import('../PCView/admin/sending')
+        },
+        {
+          path: '/PCView/packageHistory',
+          component: () => import('../PCView/admin/packageHistory')
+        },
+        {
+          path: '/PCView/userFeedback',
+          component: () => import('../PCView/admin/userFeedback')
+        },
+        {
+          path: '/PCView/adminInfo',
+          component: () => import('../PCView/admin/adminInfo')
+        },
       ]
     },
     {
@@ -41,30 +57,6 @@ export default new Router({
       path: '/mobileView/order/sendingOrder',
       name: 'sendingOrder',
       component: () => import('../mobileView/order/sendingOrder')
-    },
-    {
-      path: '/PCView/admin/storage',
-      component: () => import('../PCView/admin/storage')
-    },
-    {
-      path: '/PCView/admin/sending',
-      component: () => import('../PCView/admin/sending')
-    },
-    {
-      path: '/PCView/admin/packageHistory',
-      component: () => import('../PCView/admin/packageHistory')
-    },
-    {
-      path: '/PCView/admin/userFeedback',
-      component: () => import('../PCView/admin/userFeedback')
-    },
-    {
-      path: '/PCView/admin/adminInfo',
-      component: () => import('../PCView/admin/adminInfo')
-    },
-    {
-      path: '/PCView/superAdmin/superAdmin',
-      component: () => import('../PCView/superAdmin/adminManage')
     },
     {
       path: '/PCView/superAdmin/areaManage',
