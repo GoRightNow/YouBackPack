@@ -1,27 +1,27 @@
 <template>
   <div>
-    <div class="head">
-      <h2>存储信息填写</h2>
-    </div>
     <el-card>
+      <div class="head">
+        <p>存储信息填写</p>
+      </div>
       <el-form ref="storageForm" :model="storage">
         <el-form-item label="存储地域">
-          <el-cascader
+          <!--<el-cascader
             expand-trigger="hover"
             :options="areas"
             v-model="storage.area">
-          </el-cascader>
-          <!--<el-select v-model="storage.area">
+          </el-cascader>-->
+          <el-select v-model="storage.areaId">
               <el-option
                       v-for="item in areas"
                       :key="item.key"
                       :label="item.label"
                       :value="item.value">
               </el-option>
-          </el-select>-->
+          </el-select>
         </el-form-item>
         <el-form-item label="背包编码">
-          <el-select v-model="storage.package">
+          <el-select v-model="storage.packageId">
             <el-option
               v-for="item in packages"
               :key="item.key"
@@ -58,76 +58,51 @@
     return {
       storage: {},
       areas: [{
-        value: '重庆',
-        label: '重庆',
-        children: [{
-          value: '1',
-          label: '巴南'
-        }, {
-          value: '2',
-          label: 'aaa'
-        }, {
-          value: '3',
-          label: 'bbb'
-        }]
+        value: 1,
+        label: '重庆巴南'
       }, {
-        value: '上海',
+        value: 2,
         label: '上海',
-        children: [{
-          value: '4',
-          label: 'ccc'
-        }, {
-          value: '5',
-          label: 'ddd'
-        }, {
-          value: '6',
-          label: 'eee'
-        }]
       }, {
-        value: '北京',
+        value: 3,
         label: '北京',
-        children: [{
-          value: '7',
-          label: 'fff'
-        }]
       }, {
-        value: '天津',
+        value: 4,
         label: '天津',
-        children: [{
-          value: '8',
-          label: 'ggg'
-        }]
       }],
       packages: [{
-        value: '1',
+        value: 1,
         label: '1'
       }, {
-        value: '2',
+        value: 2,
         label: '2'
       }, {
-        value: '4',
+        value: 4,
         label: '4'
       }, {
-        value: '5',
+        value: 5,
         label: '5'
       }, {
-        value: '7',
+        value: 7,
         label: '7'
       }, {
-        value: '9',
+        value: 9,
         label: '9'
       }, {
-        value: '11',
+        value: 11,
         label: '11'
       }]
     }
   },
   methods: {
     installParms(){
-      this.storage.userId = this.$route.query.id;
+      this.storage.userId = 1;
+      // this.storage.userId = this.$route.query.id;
       this.storage.startTime = new Date();
+      this.storage.endingTime = new Date(this.storage.endingTime);
     },
     submit () {
+      this.installParms();
       orderApi.saveStorage(this.storage).then((res) => {
         this.$message({
           type: 'info',
@@ -142,7 +117,7 @@
     },
     reset () {
       this.$router.push({
-        path: '/login/login'
+        path: '/login'
       })
     }
   }

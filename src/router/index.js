@@ -28,12 +28,17 @@ export default new Router({
       ]
     },
     {
-      path: '/storageOrder',
+      path: '/mobileView/business/chooseBusiness',
+      name: 'chooseBusiness',
+      component: () => import('../mobileView/business/chooseBusiness')
+    },
+    {
+      path: '/mobileView/order/storageOrder',
       name: 'storageOrder',
       component: () => import('../mobileView/order/storageOrder')
     },
     {
-      path: '/sendingOrder',
+      path: '/mobileView/order/sendingOrder',
       name: 'sendingOrder',
       component: () => import('../mobileView/order/sendingOrder')
     },

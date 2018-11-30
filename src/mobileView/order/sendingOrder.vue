@@ -1,12 +1,12 @@
 <template>
     <div>
-      <div class="head">
-        <h2>寄送信息填写</h2>
-      </div>
       <el-card>
+        <div class="head">
+          <p>寄送信息填写</p>
+        </div>
         <el-form ref="sendingForm" :model="sending">
           <el-form-item label="寄送类型">
-            <el-select v-model="sending.type">
+            <el-select v-model="sending.sendingType">
               <el-option
                 v-for="item in types"
                 :key="item.value"
@@ -16,14 +16,25 @@
             </el-select>
           </el-form-item>
           <el-form-item label="寄送地址">
-            <el-cascader
-              expand-trigger="hover"
-              :options="areas"
-              v-model="sending.area">
-            </el-cascader>
+            <el-select v-model="sending.areaId">
+              <el-option
+                v-for="item in areas"
+                :key="item.key"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
           </el-form-item>
           <el-form-item label="目的地址">
-            <el-input v-model="sending.address"></el-input>
+            <el-select v-model="sending.sending_addressId">
+              <el-option
+                v-for="item in areas"
+                :key="item.key"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+            <!--<el-input v-model="sending.address"></el-input>-->
             <!--<el-cascader
               expand-trigger="hover"
               :options="address"
@@ -46,51 +57,25 @@
 </template>
 
 <script>
-export default {
+  import {orderApi} from "./order-api";
+
+  export default {
   name: 'sendingOrder',
   data () {
     return {
       sending: {},
       areas: [{
-        value: '重庆',
-        label: '重庆',
-        children: [{
-          value: '1',
-          label: '巴南'
-        }, {
-          value: '2',
-          label: 'aaa'
-        }, {
-          value: '3',
-          label: 'bbb'
-        }]
+        value: 1,
+        label: '重庆巴南'
       }, {
-        value: '上海',
+        value: 2,
         label: '上海',
-        children: [{
-          value: '4',
-          label: 'ccc'
-        }, {
-          value: '5',
-          label: 'ddd'
-        }, {
-          value: '6',
-          label: 'eee'
-        }]
       }, {
-        value: '北京',
+        value: 3,
         label: '北京',
-        children: [{
-          value: '7',
-          label: 'fff'
-        }]
       }, {
-        value: '天津',
+        value: 4,
         label: '天津',
-        children: [{
-          value: '8',
-          label: 'ggg'
-        }]
       }],
       types: [{
         value: '普通',
@@ -105,11 +90,27 @@ export default {
     }
   },
   methods: {
+    installParms(){
+      this.sending.userId = 1;
+    },
     submitSendingOrder () {
-
+      this.installParms();
+      orderApi.saveSending(this.sending).then((res) => {
+        this.$message({
+          type: 'info',
+          message: `寄送信息提交成功`
+        })
+      }).catch((error) => {
+        this.$message({
+          type: 'error',
+          message: `寄送信息提交失败`
+        })
+      })
     },
     resetSendingOrder () {
-
+      this.$router.push({
+        path: '/login'
+      })
     }
   }
 }
