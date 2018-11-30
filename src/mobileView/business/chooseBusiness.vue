@@ -18,9 +18,12 @@
         name: "chooseBusiness",
       data() {
           return {
-
+            id: ''
           }
       },
+      // created: function() {
+      //     this.id = this.$route.query.id;
+      // },
       methods: {
           backToLogin(){
             this.$router.push({
@@ -29,12 +32,18 @@
           },
         toStorage(){
             this.$router.push({
-              path: '/mobileView/order/storageOrder'
+              path: '/mobileView/order/storageOrder',
+              query: {
+                id: this.$route.query.id
+              }
             })
         },
         toSending(){
             this.$router.push({
-              path: '/mobileView/order/sendingOrder'
+              path: '/mobileView/order/sendingOrder',
+              query: {
+                id: this.$route.query.id
+              }
             })
         }
       }

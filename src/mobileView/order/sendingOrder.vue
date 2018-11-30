@@ -91,7 +91,7 @@
   },
   methods: {
     installParms(){
-      this.sending.userId = 1;
+      this.storage.userId = this.$route.query.id;
     },
     submitSendingOrder () {
       this.installParms();

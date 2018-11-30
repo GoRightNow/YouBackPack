@@ -96,8 +96,8 @@
   },
   methods: {
     installParms(){
-      this.storage.userId = 1;
-      // this.storage.userId = this.$route.query.id;
+      // this.storage.userId = 1;
+      this.storage.userId = this.$route.query.id;
       this.storage.startTime = new Date();
       this.storage.endingTime = new Date(this.storage.endingTime);
     },
