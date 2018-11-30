@@ -1,17 +1,22 @@
 <template>
-  <div>
+  <div class="storage">
     <el-card>
       <div class="head">
         <p>存储信息填写</p>
       </div>
       <el-form ref="storageForm" :model="storage">
+        <el-form-item label="存储类型">
+          <el-select clearable  v-model="storage.storageType">
+            <el-option
+              v-for="item in types"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="存储地域">
-          <!--<el-cascader
-            expand-trigger="hover"
-            :options="areas"
-            v-model="storage.area">
-          </el-cascader>-->
-          <el-select v-model="storage.areaId">
+          <el-select clearable  v-model="storage.areaId" @change="findPackage">
               <el-option
                       v-for="item in areas"
                       :key="item.key"
@@ -21,7 +26,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="背包编码">
-          <el-select v-model="storage.packageId">
+          <el-select clearable  v-model="storage.packageId">
             <el-option
               v-for="item in packages"
               :key="item.key"
@@ -33,12 +38,10 @@
         <el-form-item label="结束时间">
           <el-date-picker
             v-model="storage.endingTime"
-            type="date"
-            placeholder="结束时间">
+            type="datetime"
+            placeholder="结束时间"
+            :start-date="startDate">
           </el-date-picker>
-        </el-form-item>
-        <el-form-item label="存储类型">
-          <el-input v-model="storage.storageType"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submit">提交</el-button>
@@ -57,47 +60,57 @@
   data () {
     return {
       storage: {},
-      areas: [{
-        value: 1,
-        label: '重庆巴南'
+      areas: [],
+      packages: [],
+      types: [{
+        value: '普通',
+        label: '普通'
       }, {
-        value: 2,
-        label: '上海',
-      }, {
-        value: 3,
-        label: '北京',
-      }, {
-        value: 4,
-        label: '天津',
+        value: '贵重',
+        label: '贵重'
       }],
-      packages: [{
-        value: 1,
-        label: '1'
-      }, {
-        value: 2,
-        label: '2'
-      }, {
-        value: 4,
-        label: '4'
-      }, {
-        value: 5,
-        label: '5'
-      }, {
-        value: 7,
-        label: '7'
-      }, {
-        value: 9,
-        label: '9'
-      }, {
-        value: 11,
-        label: '11'
-      }]
+      startDate: new Date()
     }
   },
+    created: function(){
+      this.storage.userId = this.$route.query.id;
+      this.findAreas();
+    },
   methods: {
+    findAreas(){
+      orderApi.findArea().then((res) => {
+        console.log(res.data);
+        for(let e of res.data){
+          let area = {};
+          area.label = e.address;
+          area.value = e.id;
+          this.areas.push(area);
+        }
+      }).catch((error) => {
+        this.$message({
+          type: 'error',
+          message: `查询地域信息失败`
+        })
+      })
+    },
+    findPackage(){
+      orderApi.findPackage({areaId: this.storage.areaId}).then((res) => {
+        console.log(res.data);
+        for(let e of res.data){
+          let apackage = {};
+          apackage.label = e.id;
+          apackage.value = e.id;
+          this.packages.push(apackage);
+        }
+      }).catch((error) => {
+        this.$message({
+          type: 'error',
+          message: `查询背包信息失败`
+        })
+      })
+    },
     installParms(){
       // this.storage.userId = 1;
-      this.storage.userId = this.$route.query.id;
       this.storage.startTime = new Date();
       this.storage.endingTime = new Date(this.storage.endingTime);
     },
@@ -105,7 +118,7 @@
       this.installParms();
       orderApi.saveStorage(this.storage).then((res) => {
         this.$message({
-          type: 'info',
+          type: 'success',
           message: `存储信息提交成功`
         })
       }).catch((error) => {
@@ -117,7 +130,10 @@
     },
     reset () {
       this.$router.push({
-        path: '/login'
+        path: '/mobileView/business/chooseBusiness',
+        query: {
+          id: this.storage.userId
+        }
       })
     }
   }
@@ -126,4 +142,12 @@
 
 <style scoped>
 
+</style>
+<style>
+  .storage{
+    background: url('../../assets/login.jpg');
+  }
+  .storage .el-card__body{
+    background: hsla(0, 0%, 100%, .7);
+  }
 </style>
