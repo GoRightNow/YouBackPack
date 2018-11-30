@@ -78,14 +78,17 @@
             this.$message({message: "请先填写信息", type: "success"});
           if (valid) {
             loginApi.login(this.form).then((re) => {
-              if (re.data.data.name == null) {
+              if (!re.data.data.name) {
                 this.$message({message: "请先注册", type: "success"});
               }
               else {
                 this.$message({message: "欢迎," + re.data.data.name + "!", type: "success"});
-                this.$router.push({path: '/storageOrder', query: {id: re.data.data.id}})
+                this.$router.push({path: '/mobileView/business/chooseBusiness', query: {id: re.data.data.id}})
               }
             }).catch((error) => {
+              this.$message({message: "请先注册", type: "error"});
+              this.$router.push({path: '/register'})
+
             })
           }
           else {
