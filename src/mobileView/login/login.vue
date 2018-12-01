@@ -62,11 +62,11 @@
         rules: {
           number: [
             {required: true, message: '请输入手机号', trigger: 'change'},
-            {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
+            {min: 11, max: 11, message: '手机号格式错误', trigger: 'blur'}
           ],
           password: [
             {required: true, message: '请输入密码', trigger: 'blur'},
-            {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
+            {min: 8, max: 16, message: '长度在 8 到 16 个字符', trigger: 'blur'}
           ]
         },
       }
@@ -86,9 +86,7 @@
                 this.$router.push({path: '/mobileView/business/chooseBusiness', query: {id: re.data.data.id}})
               }
             }).catch((error) => {
-              this.$message({message: "请先注册", type: "error"});
-              this.$router.push({path: '/register'})
-
+              this.$message({message: error, type: "error"});
             })
           }
           else {
@@ -130,12 +128,10 @@
 
   .login {
     margin: 0px;
-    max-height: 975px;
-    height: 100%;
-    width: 100%;
+    min-height: 100%;
+    min-width: 100%;
     background: url('../../assets/login.jpg');
     background-size: cover;
-    background-attachment: fixed;
   }
 
   .login .el-card__header {

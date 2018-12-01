@@ -10,25 +10,24 @@
         border
         style="width: 100%">
         <el-table-column
-          fixed
-          prop="date"
-          label="日期"
-          width="150">
-        </el-table-column>
-        <el-table-column
           prop="name"
           label="姓名"
           width="120">
         </el-table-column>
         <el-table-column
-          prop="province"
-          label="省份"
-          width="120">
+          prop="startTime"
+          label="开始日期"
+          width="200">
         </el-table-column>
         <el-table-column
-          prop="city"
-          label="市区"
-          width="120">
+          prop="endingTime"
+          label="结束日期"
+          width="200">
+        </el-table-column>
+        <el-table-column
+          prop="storageType"
+          label="存储类型"
+          width="200">
         </el-table-column>
         <el-table-column
           prop="address"
@@ -36,14 +35,8 @@
           width="300">
         </el-table-column>
         <el-table-column
-          prop="zip"
-          label="邮编"
-          width="120">
-        </el-table-column>
-        <el-table-column
           fixed="right"
-          label="操作"
-          width="100">
+          label="操作">
           <template slot-scope="scope">
             <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
             <el-button type="text" size="small">编辑</el-button>
@@ -55,11 +48,27 @@
 </template>
 
 <script>
+   import {storageApi} from './admin-api';
     export default {
         name: "storage",
         data: function () {
-          return {}
-        }
+          return {
+            tableData:[],
+            form:{
+              adminId:1
+            }
+          }
+        },
+      created(){
+          this.init();
+      },
+      methods:{
+          init(){
+            storageApi.getStorage(this.form).then((re) => {
+                this.tableData = re.data.data;
+              })
+            }
+      }
     }
 </script>
 
