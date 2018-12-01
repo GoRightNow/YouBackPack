@@ -1,11 +1,13 @@
 <template>
   <div class="storage">
-    <el-card>
-      <div class="head">
-        <p>存储信息填写</p>
+    <el-header>
+      <div class="header-content">
+        <p class="title">存储信息填写</p>
       </div>
-      <el-form ref="storageForm" :model="storage">
-        <el-form-item label="存储类型">
+    </el-header>
+    <el-card>
+      <el-form ref="storageForm" :model="storage" >
+        <el-form-item label="存储类型" label-width="90px">
           <el-select clearable  v-model="storage.storageType">
             <el-option
               v-for="item in types"
@@ -15,7 +17,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="存储地域">
+        <el-form-item label="存储地域" label-width="90px">
           <el-select clearable  v-model="storage.areaId" @change="findPackage">
               <el-option
                       v-for="item in areas"
@@ -25,7 +27,7 @@
               </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="背包编码">
+        <el-form-item label="背包编码" label-width="90px">
           <el-select clearable  v-model="storage.packageId">
             <el-option
               v-for="item in packages"
@@ -35,7 +37,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="结束时间">
+        <el-form-item label="结束时间" label-width="90px">
           <el-date-picker
             v-model="storage.endingTime"
             type="datetime"
@@ -43,9 +45,9 @@
             :start-date="startDate">
           </el-date-picker>
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submit">提交</el-button>
-          <el-button type="primary" @click="reset">取消</el-button>
+        <el-form-item class="btn-item">
+          <el-button class="btn" type="primary" @click="submit">提交</el-button>
+          <el-button class="btn" type="primary" @click="reset">取消</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -145,9 +147,41 @@
 </style>
 <style>
   .storage{
+    margin: 0px;
+    max-height: 975px;
+    height: 100%;
+    width: 100%;
     background: url('../../assets/login.jpg');
+    background-size: cover;
+    background-attachment: fixed;
   }
-  .storage .el-card__body{
+
+  .storage .el-header{
+    background-color: white;
     background: hsla(0, 0%, 100%, .7);
+  }
+
+  .header-content{
+    line-height: 60px;
+  }
+
+  .title{
+    margin: 0 auto;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+  }
+
+  .el-card{
+    background: hsla(0, 0%, 100%, .5);
+  }
+
+  .btn-item{
+    text-align: right;
+    width: 90%;
+  }
+
+  .el-button{
+    width: 100px;
   }
 </style>

@@ -1,11 +1,13 @@
 <template>
     <div class="sending">
-      <el-card>
-        <div class="head">
-          <p>寄送信息填写</p>
+      <el-header>
+        <div class="header-content">
+          <p class="title">寄送信息填写</p>
         </div>
+      </el-header>
+      <el-card>
         <el-form ref="sendingForm" :model="sending">
-          <el-form-item label="寄送类型">
+          <el-form-item label="寄送类型" label-width="90px">
             <el-select clearable  v-model="sending.sendingType">
               <el-option
                 v-for="item in types"
@@ -15,7 +17,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="寄送地址">
+          <el-form-item label="寄送地址" label-width="90px">
             <el-select clearable  v-model="sending.areaId">
               <el-option
                 v-for="item in areas"
@@ -25,7 +27,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="目的地址">
+          <el-form-item label="目的地址" label-width="90px">
             <el-select clearable  v-model="sending.sending_addressId">
               <el-option
                 v-for="item in areas"
@@ -35,13 +37,13 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="收件人姓名">
-            <el-input v-model="sending.addresseeName"></el-input>
+          <el-form-item label="收件人姓名" label-width="90px">
+            <el-input v-model="sending.addresseeName" style="max-width: 217px"></el-input>
           </el-form-item>
-          <el-form-item label="收件人电话">
-            <el-input v-model="sending.addresseeTel"></el-input>
+          <el-form-item label="收件人电话" label-width="90px">
+            <el-input v-model="sending.addresseeTel" style="max-width: 217px"></el-input>
           </el-form-item>
-          <el-form-item>
+          <el-form-item class="btn-item">
             <el-button type="primary" @click="submitSendingOrder">提交</el-button>
             <el-button type="primary" @click="resetSendingOrder">取消</el-button>
           </el-form-item>
@@ -122,5 +124,42 @@
 </script>
 
 <style scoped>
+  .sending{
+    margin: 0px;
+    max-height: 975px;
+    height: 100%;
+    width: 100%;
+    background: url('../../assets/login.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+  }
 
+  .sending .el-header{
+    background-color: white;
+    background: hsla(0, 0%, 100%, .7);
+  }
+
+  .header-content{
+    line-height: 60px;
+  }
+
+  .title{
+    margin: 0 auto;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+  }
+
+  .el-card{
+    background: hsla(0, 0%, 100%, .5);
+  }
+
+  .btn-item{
+    text-align: right;
+    width: 90%;
+  }
+
+  .el-button{
+    width: 100px;
+  }
 </style>

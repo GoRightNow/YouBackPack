@@ -1,16 +1,17 @@
 <template>
     <div class="choose">
       <el-header>
-        <i class="el-icon-arrow-left" @click="backToLogin"></i>
-        <span>选择业务</span>
+        <div class="header-content">
+          <p class="title">选择业务</p>
+        </div>
       </el-header>
       <el-main>
         <el-card>
           <el-row>
-            <el-button type="big" @click="toStorage">存储物品</el-button>
+            <el-button class="storageBtn el-icon-menu" type="primary" @click="toStorage">存储物品</el-button>
           </el-row>
           <el-row>
-            <el-button type="big" @click="toSending">寄送物品</el-button>
+            <el-button class="sendingBtn el-icon-sort" type="success" @click="toSending">寄送物品</el-button>
           </el-row>
         </el-card>
       </el-main>
@@ -63,5 +64,38 @@
     background: url('../../assets/login.jpg');
     background-size: cover;
     background-attachment: fixed;
+  }
+
+  .choose .el-header{
+    background-color: white;
+    background: hsla(0, 0%, 100%, .7);
+  }
+
+  .header-content{
+    line-height: 60px;
+  }
+
+  .title{
+    margin: 0 auto;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+  }
+
+  .choose .el-main{
+    background: hsla(0, 0%, 100%, .7);
+  }
+
+  .el-card{
+    background: hsla(0, 0%, 100%, .5);
+  }
+
+  .el-row{
+    text-align: center;
+    padding: 15px 0;
+  }
+
+  .el-button{
+
   }
 </style>
